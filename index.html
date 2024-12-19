@@ -19,6 +19,7 @@
       height: 100vh;
       font-family: Arial, sans-serif;
       overflow: hidden;
+      position: relative;
     }
 
     .background {
@@ -49,6 +50,8 @@
       max-height: 60vh;
       overflow-y: scroll;
       transition: height 0.5s ease-in-out;
+      position: relative;
+      z-index: 1;
     }
 
     .content {
@@ -61,6 +64,47 @@
       display: inline-block;
       opacity: 0;
       animation: textShow 2s forwards;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff6b6b;
+      transform: rotate(45deg);
+      animation: fall 3s linear infinite;
+      z-index: 2;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff6b6b;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-200px) rotate(45deg);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
     }
 
     @keyframes textShow {
@@ -101,7 +145,7 @@
   </div>
 
   <script>
-    const text = "hai fania, semoga diberi kesehatan selalu dan keberkahan yang melimpah. happy late birthday yaa buat fania, ini ada hadiah buat fania yang udah ngajarin aku banyak hal tentang semuanya. apa lagi kalo tentang kerjaan, you’re the best. kalo tanya kenapa aku ngasih hadiah inii aku jawabnya makasih buat waktu fania yang udah nyempetin main-main sama aku, cerita banyak ke aku, seru-seruan bareng, nonton bareng, sedih bareng, seneng bareng, yaa pokoknya semuanyaa yang fania nyempetin main di jadwal fania yang padet banget. yang sampe ngerelain rutinitas fania yang jadinya main sama aku. kalo kamu tanya kenapa ngasih jam tangan? ya dari sini aku kasih hadiah ini ya karena aku belajar banyak harus ngehargain waktu yang ada, apalagi di umur yang sekarang. kayak katamu yang kemarin kan tentang barang yang ada artinya, inget nggaa?  jangan dilihat dari harganya yaa sayang. aku sengaja ngasih ini pas fania mau pulang hehe, semoga sukakk yaa sayangg🥰🥰aku pesen buat hubungannya saling percaya aja ya sayang. komunikasiin sama kasih kabar yang penting. kalo ada masalah diselesein baik-baik yaa, semua bisa kok diselesein baik-baik ngga harus sambil marah. aku ingetin lagii sempetin yaa ngasih kabar, aku mau kok fania cerita ke aku yang banyak juga gapapa sayangg. fania di sini ngga idup sendirian kokk. keluhin semuanya di aku yaa sayangg. aku juga ada pesen buat idup fania. cuma harus lebih sabar aja yaa sayangg, sama sempetin MAKAN SAYANGKUU CINTAKUU, aku marah banget aslinya kalo sayangku ngga makann, tapi tetep sayang kokk hehe🥰🥰 selebihnya aku percaya fania bisa ngelakuin semuanya. hati-hati ya sayangg di jakarta. jaga diri baik-baik, semoga betah sama kerjaanya, betah sama lingkungannya. pokokya aku doain semuanya yang baik buat fania. sampe ketemu lagi ya sayangggkuu cintaaa. ilovuu more sayang❤️ oiyaa beliin baterainya yaa hehe maaf lupa sayangg😘 -arif ";
+    const text = "hai fania, semoga diberi kesehatan selalu dan keberkahan yang melimpah. happy late birthday yaa buat fania, ini ada hadiah buat fania yang udah ngajarin aku banyak hal tentang semuanya. apa lagi kalo tentang kerjaan, you’re the best. kalo tanya kenapa aku ngasih hadiah inii aku jawabnya makasih buat waktu fania yang udah nyempetin main-main sama aku, cerita banyak ke aku, seru-seruan bareng, nonton bareng, sedih bareng, seneng bareng, yaa pokoknya semuanyaa yang fania nyempetin main di jadwal fania yang padet banget. yang sampe ngerelain rutinitas fania yang jadinya main sama aku. kalo kamu tanya kenapa ngasih jam tangan? ya dari sini aku kasih hadiah ini ya karena aku belajar banyak harus ngehargain waktu yang ada, apalagi di umur yang sekarang. kayak katamu yang kemarin kan tentang barang yang ada artinya, inget nggaa?  jangan dilihat dari harganya yaa sayang. aku sengaja ngasih ini pas fania mau pulang hehe, semoga sukakk yaa sayangg🥰🥰aku pesen buat hubungannya saling percaya aja ya sayang. komunikasiin sama kasih kabar yang penting. kalo ada masalah diselesein baik-baik yaa, semua bisa kok diselesein baik-baik ngga harus sambil marah. aku ingetin lagii sempetin yaa ngasih kabar, aku mau kok fania cerita ke aku yang banyak juga gapapa sayangg, aku sukak dengerin fania ngomong panjang x lebar x tinggii. fania di sini ngga idup sendirian kokk. keluhin semuanya di aku yaa sayangg. aku juga ada pesen buat idup fania. cuma harus lebih sabar aja yaa sayangg, sama sempetin MAKAN SAYANGKUU CINTAKUU, aku marah banget aslinya kalo sayangku ngga makann, tapi tetep sayang kokk hehe🥰🥰 selebihnya aku percaya fania bisa ngelakuin semuanya. hati-hati ya sayangg di jakarta. jaga diri baik-baik, semoga betah sama kerjaanya, betah sama lingkungannya. pokokya aku doain semuanya yang baik buat fania. sampe ketemu lagi ya sayangggkuu cintaaa. ilovuu more sayangg❤️ oiyaa beliin baterainya yaa hehe maaf lupa sayangg😘 -arif ";
     const animatedTextElement = document.getElementById("animated-text");
     let index = 0;
 
@@ -116,6 +160,21 @@
     window.onload = () => {
       typeLetter();
     };
+  </script>
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 300);
   </script>
 </body>
 
